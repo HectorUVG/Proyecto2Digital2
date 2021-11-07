@@ -14,6 +14,10 @@
 //sensor
 #define sensor 35
 
+//Comunicacion Uart
+#define RXD2 16
+#define TXD2 17
+
 //*****************************************************************************
 //Prototipos de funciones
 //*****************************************************************************
@@ -46,14 +50,16 @@ unsigned long lastTime2;
 unsigned int sampleTime2 = 3000;
 
 //media movil
-int numLecturas = 10;
+float numLecturas = 10;
 float bufferLecturas[10];
 int indexLecturas = 0;
-long mAvgSuma = 0;
-long adcfiltrado = 0;
+float mAvgSuma = 0;
+float adcfiltrado = 0;
 
 //temperatura a decenas, unidades y decimales
 int temp = 0;
+
+int temperaturaEntero = 0;
 //*****************************************************************************
 //ISR
 //*****************************************************************************
@@ -65,6 +71,7 @@ int temp = 0;
 void setup() {
 
   Serial.begin(115200);
+  Serial2.begin(115200);
   lastTime = millis();//delay de 500milisegundos
   lastTime2 = millis();//delay de 3000milisegundos
 }
@@ -80,6 +87,8 @@ void loop() {
 
   //definicion de decena unidad y decimal
   tempAUnidades();
+  temperaturaEntero = temperatura;
+  Serial2.write(temperaturaEntero);
 }
 
 //*****************************************************************************
@@ -109,7 +118,7 @@ void mediaMovilADC(){
     Serial.print(" mediaMovil: ");
     Serial.print(adcfiltrado);
     Serial.print(" temperatura: ");
-    Serial.println(temperatura);
+    Serial.println(temperaturaEntero);
   }
 
 
