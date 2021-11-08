@@ -26,7 +26,7 @@ String mensaje = "";
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  Serial3.begin(115200);
+  Serial2.begin(115200);
   
   pinMode(boton1, INPUT_PULLUP);
   pinMode(boton2, INPUT_PULLUP);
@@ -87,8 +87,8 @@ void contBitsSuma() {
 //Funcion para recibir datos de esp
 //*****************************************************************************
 void comunicacionESP(){
-  if(Serial3.available()){//si hay algun dato esperando a ser leido...
-    temperatura = Serial3.read();//el dato es guardado en la variable
+  if(Serial2.available()){//si hay algun dato esperando a ser leido...
+    temperatura = Serial2.read();//el dato es guardado en la variable
     
   }
 }
